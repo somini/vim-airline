@@ -9,21 +9,25 @@ function! s:update()
   if &ft !~ s:filetypes
     unlet! b:airline_wordcount
     return
-  elseif mode() =~? 's'
-    " Bail on select mode
-    return
   endif
 
-  let old_status = v:statusmsg
-  let position = getpos(".")
-  exe "silent normal! g\<c-g>"
-  let stat = v:statusmsg
-  call setpos('.', position)
-  let v:statusmsg = old_status
+  if exists('*wordcount')
+    " Only on Vim 7.4.1042
+    let cnt = wordcount()[2]
+  else
+    let old_status = v:statusmsg
+    let position = getpos(".")
+    exe "silent normal! g\<c-g>"
+    let stat = v:statusmsg
+    call setpos('.', position)
+    let v:statusmsg = old_status
 
-  let parts = split(stat)
-  if len(parts) > 11
-    let cnt = str2nr(split(stat)[11])
+    let parts = split(stat)
+    if len(parts) > 11
+      let cnt = str2nr(split(stat)[11])
+    endif
+  endif
+  if exists('cnt')
     let spc = g:airline_symbols.space
     let b:airline_wordcount = printf(s:format, cnt) . spc . g:airline_right_alt_sep . spc
   else
