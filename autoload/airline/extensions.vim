@@ -254,6 +254,10 @@ function! airline#extensions#load()
     call airline#extensions#obsession#init(s:ext)
   endif
 
+  if (get(g:, 'airline#extensions#pydoc#enabled', 1) && exists(':PyDoc'))
+    let s:filetype_overrides['pydoc'] = ['PyDoc', '%{get(b:, "pydoc_name", "--Python Documentation--")}']
+  endif
+
   if !get(g:, 'airline#extensions#disable_rtp_load', 0)
     " load all other extensions, which are not part of the default distribution.
     " (autoload/airline/extensions/*.vim outside of our s:script_path).

@@ -727,6 +727,12 @@ vim-obsession <https://github.com/tpope/vim-obsession>
 * set marked window indicator string >
   let g:airline#extensions#obsession#indicator_text = '$'
 <
+-------------------------------------                    *airline-pydoc*
+vim-obsession <https://github.com/somini/pydoc.vim>
+
+* enable/disable pydoc integration >
+  let g:airline#extensions#pydoc#enabled = 1
+<
 -------------------------------------                        *airline-taboo*
 taboo.vim <https://github.com/gcmt/taboo.vim>
 
